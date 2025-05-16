@@ -2,8 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Painel Administrativo Speed Meeting - Inicializado com sucesso');
 
-    // Array vazio para palestras (será preenchido via integração com backend)
-    let dadosPalestras = [];
 
     // Referências dos elementos DOM
     const secaoPalestras = document.getElementById('secao-palestras');
