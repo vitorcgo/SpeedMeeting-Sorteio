@@ -1,0 +1,276 @@
+/* Estilos para a tela de apresentação - Speed Meeting */
+
+/* Variáveis */
+:root {
+    --cor-primaria: #FFD400;
+    --cor-texto: #1A1A1A;
+    --cor-fundo: #FFFFFF;
+    --cor-destaque: #7B1FA2; /* Roxo */
+    --cor-cinza-claro: #F5F5F5;
+    --cor-cinza: #E0E0E0;
+    --cor-cinza-medio: #9E9E9E;
+    --cor-cinza-escuro: #616161;
+    --cor-perigo: #FF5252;
+    --cor-sucesso: #4CAF50;
+    --border-radius: 8px;
+    --sombra-suave: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --sombra-media: 0 5px 15px rgba(0, 0, 0, 0.15);
+    --transicao-padrao: all 0.3s ease;
+}
+
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--cor-texto);
+    background-color: var(--cor-cinza-claro);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Container principal */
+.container-apresentacao {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+/* Área do vídeo */
+.area-video {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    position: relative;
+}
+
+#video-apresentacao {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+/* Botão de sorteio */
+#botao-sorteio-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: none;
+}
+
+#botao-sorteio-container.visivel {
+    display: block;
+}
+
+.botao-sorteio {
+    background-color: var(--cor-destaque);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(123, 31, 162, 0.5);
+    transition: var(--transicao-padrao);
+}
+
+.botao-sorteio:hover {
+    background-color: #9C27B0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(123, 31, 162, 0.6);
+}
+
+.botao-sorteio:active {
+    transform: translateY(0);
+}
+
+.botao-sorteio:disabled {
+    background-color: #9C27B0;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Botão de sorteio */
+#botao-sorteio-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: none;
+}
+
+#botao-sorteio-container.visivel {
+    display: block;
+}
+
+.botao-sorteio {
+    background-color: var(--cor-destaque);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(123, 31, 162, 0.5);
+    transition: var(--transicao-padrao);
+}
+
+.botao-sorteio:hover {
+    background-color: #9C27B0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(123, 31, 162, 0.6);
+}
+
+.botao-sorteio:active {
+    transform: translateY(0);
+}
+
+.botao-sorteio:disabled {
+    background-color: #9C27B0;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Área do sorteado */
+.area-sorteado {
+    position: absolute;
+    top: 46%;
+    margin-left: 58%;
+    transform: translateY(-50%);
+    width: 700px;
+    
+    background-color: var(--cor-fundo);
+    border-radius: var(--border-radius);
+    box-shadow: var(--sombra-media);
+    overflow: hidden;
+    z-index: 10;
+}
+
+.cabecalho-sorteado {
+    background-color: var(--cor-primaria);
+    padding: 15px;
+    text-align: center;
+}
+
+.logo-sorteado {
+    margin-bottom: 10px;
+}
+
+.logo-sorteado h2 {
+    font-size: 3rem;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.logo-sorteado span {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+}
+
+.titulo-sorteado {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.conteudo-sorteado {
+    padding: 20px;
+    text-align: center;
+    animation: aparecer 0.5s ease;
+}
+
+.contador {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--cor-cinza-escuro);
+}
+
+.nome-sorteado {
+    font-size: 4em;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--cor-destaque);
+    animation: pulsar 1s ease-in-out;
+}
+
+.empresa-sorteada {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--cor-cinza-escuro);
+    margin-bottom: 10px;
+}
+
+/* Utilitários */
+.escondido {
+    display: none !important;
+}
+
+/* Animações */
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulsar {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container-apresentacao {
+        flex-direction: column;
+    }
+    
+    .area-sorteado {
+        position: relative;
+        width: 100%;
+        top: auto;
+        right: auto;
+        transform: none;
+        margin-top: -80px;
+        z-index: 20;
+    }
+    
+    .area-video {
+        height: 70vh;
+    }
+}
