@@ -16,11 +16,17 @@
     <div class="topo-pagina">
         <div class="container cabecalho">
             <div class="logo">
-                <h1>Speed Meeting</h1>
-                <span>Rodada de Negócios</span>
+                <img src="assets/images/masconte-logo.png" alt="Masconte SpeedMeeting" class="masconte-logo">
+                <div class="logo-text">
+                    <h1>Speed Meeting</h1>
+                    <span>Rodada de Negócios</span>
+                </div>
             </div>
             <nav class="menu">
-                <ul>
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="menu-list">
                     <li><a href="#" class="ativo" id="link-palestras">Palestras</a></li>
                     <li><a href="#" id="link-painel-ativo">Painel Ativo</a></li>
                 </ul>
@@ -146,6 +152,9 @@
                         </div>
                         
                         <div class="acoes-card">
+                            <button id="btn-gerenciar-logos" class="botao-secundario">
+                                <i class="fas fa-image"></i> Gerenciar Logos
+                            </button>
                             <button id="btn-exportar-participantes" class="botao-secundario">
                                 <i class="fas fa-download"></i> Exportar Participantes
                             </button>
@@ -216,6 +225,31 @@
         </div>
     </div>
 
+    <!-- Load modal HTML -->
+    <div id="modal-empresas-container"></div>
+    
+    <!-- Scripts -->
+    <!-- Core Managers -->
+    <script src="js/managers/PalestraManager.js"></script>
+    <script src="js/managers/ParticipanteManager.js"></script>
+    <script src="js/managers/SorteioManager.js"></script>
+    <!-- Mobile Menu Script -->
+    <script src="js/menu.js"></script>
+    <!-- Main Script -->
     <script src="script.js"></script>
+    <script>
+        // Carregar modal de empresas
+        fetch('empresa_modal.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modal-empresas-container').innerHTML = html;
+            });
+        
+        // Adicionar evento ao botão de gerenciar logos
+        document.getElementById('btn-gerenciar-logos').addEventListener('click', function() {
+            document.getElementById('modal-empresa').style.display = 'block';
+            atualizarListaLogos(); // Função definida em ajax_empresas.js
+        });
+    </script>
 </body>
 </html>

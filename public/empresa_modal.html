@@ -1,0 +1,45 @@
+<!-- public/empresa_modal.html -->
+<div id="modal-empresa" class="modal">
+    <div class="modal-conteudo">
+        <div class="modal-cabecalho">
+            <h3>Gerenciar Logos</h3>
+            <button class="fechar-modal" onclick="fecharModalEmpresas()">&times;</button>
+        </div>
+        
+        <div class="modal-corpo">
+            <!-- Upload de Logo -->
+            <div class="secao-upload">
+                <h4>Adicionar Nova Logo</h4>
+                <form id="form-logo" class="form-upload" onsubmit="return uploadLogo(event)">
+                    <div class="grupo-form">
+                        <label for="nome-empresa">Nome da Empresa</label>
+                        <input type="text" id="nome-empresa" required>
+                    </div>
+                    
+                    <div class="grupo-form">
+                        <label for="arquivo-logo">Logo da Empresa</label>
+                        <div class="area-upload">
+                            <input type="file" id="arquivo-logo" accept="image/*" required onchange="atualizarNomeArquivoLogo(event)">
+                            <label for="arquivo-logo" class="label-arquivo">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span id="nome-arquivo-logo">Clique para escolher a logo</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="botao-primario">
+                        <i class="fas fa-plus"></i> Adicionar Logo
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Lista de Logos -->
+            <div class="secao-logos">
+                <h4>Logos Cadastradas</h4>
+                <div id="lista-logos" class="grid-logos sortable">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
