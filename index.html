@@ -311,6 +311,28 @@
     <script type="module" src="script.js"></script>
     <script type="module" src="ajax.js"></script>
     <script src="tela.js"></script>
+    <script>
+
+        // Filtro de Pesquisa
+        document.addEventListener('DOMContentLoaded', function () {
+            const campoPesquisa = document.getElementById('pesquisa-participante');
+            const listaParticipantes = document.getElementById('lista-participantes');
+
+            campoPesquisa.addEventListener('input', function () {
+                const termo = campoPesquisa.value.toLowerCase();
+                const participantes = listaParticipantes.querySelectorAll('.item-participante');
+
+                participantes.forEach(function (participante) {
+                    const texto = participante.innerText.toLowerCase();
+                    participante.style.display = texto.includes(termo) ? '' : 'none';
+                });
+            });
+        });
+
+
+
+
+    </script>
 </body>
 
 </html>
