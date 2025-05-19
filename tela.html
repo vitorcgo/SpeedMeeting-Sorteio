@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Meeting | Apresentação</title>
+    <link rel="stylesheet" href="tela.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="container-apresentacao">
+        <!-- Área do Vídeo -->
+        <div class="area-video">
+            <!-- O vídeo será adicionado posteriormente pelo cliente -->
+            <video id="video-apresentacao">
+                <!-- Fonte do vídeo será adicionada pelo cliente -->
+                <source src="/upload/sorteio-speed-coutdown.mp4" type="video/mp4">
+                Seu navegador não suporta a tag de vídeo.
+            </video>
+            
+            <!-- Botão de Sorteio -->
+            <div id="botao-sorteio-container" class="visivel">
+                <button id="botao-iniciar-sorteio" class="botao-sorteio">
+                    <i class="fas fa-random"></i>
+                    <span>Iniciar Sorteio</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Área do Sorteado -->
+        <div class="area-sorteado" id="area-sorteado">
+            <div class="cabecalho-sorteado">
+                <div class="logo-sorteado">
+                    <h2>Speed Meeting</h2>
+                    <span>Rodada de Negócios</span>
+                </div>
+                <div class="titulo-sorteado">Sorteado</div>
+            </div>
+            <div class="conteudo-sorteado escondido" id="conteudo-sorteado">
+                <div class="contador">Sorteado #<span id="numero-sorteio">1</span></div>
+                <div class="nome-sorteado" id="nome-sorteado">Nome do Participante</div>
+                <div class="empresa-sorteada" id="empresa-sorteada">Empresa do Participante</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slideshow de logos -->
+    <div class="slideshow-logos escondido" id="slideshow-logos">
+        <!-- Preenchido via JavaScript -->
+    </div>
+    
+<script type="module" src="tela_ajax.js"></script>
+<script type="module" src="tela.js"></script>
+</body>
+</html>
