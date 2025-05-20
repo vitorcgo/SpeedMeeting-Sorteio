@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19/05/2025 às 05:36
+-- Tempo de geração: 20/05/2025 às 07:49
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -38,10 +38,8 @@ CREATE TABLE `logos` (
 --
 
 INSERT INTO `logos` (`id`, `nome_empresa`, `caminho_arquivo`) VALUES
-(1, 'oI', '682a02dfb1232_Masconte SpeedMeeting.png'),
-(2, 'Olá', '682a096499f92_Logo KeyUP-sobre.png'),
-(3, 'Ke', '682a096be3ff0_3333.png'),
-(4, 'oI', '682a114d38825_Masconte SpeedMeeting.png');
+(5, 'Patrocinio CSF', '682c0268bd349_Credenciamento.png'),
+(6, 'Key UP', '682c050b02d9d_KeyUP.png');
 
 -- --------------------------------------------------------
 
@@ -60,9 +58,8 @@ CREATE TABLE `logo_palestra` (
 --
 
 INSERT INTO `logo_palestra` (`id`, `palestra_id`, `logo_id`) VALUES
-(17, 21, 1),
-(20, 22, 2),
-(21, 22, 3);
+(30, 26, 5),
+(31, 30, 5);
 
 -- --------------------------------------------------------
 
@@ -81,8 +78,8 @@ CREATE TABLE `palestras` (
 --
 
 INSERT INTO `palestras` (`id`, `titulo`, `data`) VALUES
-(21, 'Speed', '2025-02-28'),
-(22, 'Teste4324', '2003-10-20');
+(26, 'Google', '2025-05-16'),
+(30, 'Disrupta', '2025-05-20');
 
 -- --------------------------------------------------------
 
@@ -102,16 +99,21 @@ CREATE TABLE `participantes` (
 --
 
 INSERT INTO `participantes` (`id`, `palestra_id`, `nome`, `empresa`) VALUES
-(53, 21, 'Ricardo Alves', 'Startup Lab'),
-(54, 21, 'Patricia Mendonça', 'Inova Capital'),
-(55, 21, 'Eduardo Silva', 'Tech Ventures'),
-(56, 21, 'Bianca Martins', 'Growth Hacking'),
-(57, 21, 'Thiago Ferreira', 'IoT Brasil'),
-(58, 22, 'Ricardo Alves', 'Startup Lab'),
-(59, 22, 'Patricia Mendonça', 'Inova Capital'),
-(60, 22, 'Eduardo Silva', 'Tech Ventures'),
-(61, 22, 'Bianca Martins', 'Growth Hacking'),
-(62, 22, 'Thiago Ferreira', 'IoT Brasil');
+(68, 26, 'Ricardo Alves', 'Startup Lab'),
+(76, 26, 'Patricia Mendonça', 'Inova Capital'),
+(81, 26, 'Eduardo Silva', 'Tech Ventures'),
+(88, 26, 'Bianca Martins', 'Growth Hacking'),
+(92, 26, 'Thiago Ferreira', 'IoT Brasil'),
+(98, 30, 'Ricardo Alves', 'Startup Lab'),
+(99, 30, 'Patricia Mendonça', 'Inova Capital'),
+(100, 30, 'Eduardo Silva', 'Tech Ventures'),
+(101, 30, 'Bianca Martins', 'Growth Hacking'),
+(102, 30, 'Thiago Ferreira', 'IoT Brasil'),
+(103, 30, 'Ana Julia', 'Pop Mart'),
+(104, 30, 'Vitor Gomes', 'Santander'),
+(105, 30, 'Daiana Lopes', 'Google'),
+(106, 30, 'Juliana Carvalho', 'Investiment'),
+(107, 30, 'Diego Nogueira', 'Londres');
 
 -- --------------------------------------------------------
 
@@ -129,12 +131,26 @@ CREATE TABLE `sorteios` (
   `participante_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Despejando dados para a tabela `sorteios`
+-- Estrutura para tabela `usuarios`
 --
 
-INSERT INTO `sorteios` (`id`, `palestra_id`, `nome`, `empresa`, `horario`, `ordem`, `participante_id`) VALUES
-(17, 22, 'Eduardo Silva', 'Tech Ventures', '00:35:29', 1, 60);
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `usuario`, `senha`, `criado_em`) VALUES
+(5, 'vitor', '$2y$10$2io9oM8izY5ydt0kntQ3S.jfhsnFvOu9nfMEu3n6YDm6nQ.FrBYp2', '2025-05-20 05:47:59'),
+(6, 'Daiana', '$2y$10$g8yDyd9Tmg46469K6dH.VOxHCTlQsMmQ5j3dqn6xDdhPG/ZKlCa3e', '2025-05-20 05:49:38');
 
 --
 -- Índices para tabelas despejadas
@@ -175,6 +191,13 @@ ALTER TABLE `sorteios`
   ADD KEY `palestra_id` (`palestra_id`);
 
 --
+-- Índices de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -182,31 +205,37 @@ ALTER TABLE `sorteios`
 -- AUTO_INCREMENT de tabela `logos`
 --
 ALTER TABLE `logos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `logo_palestra`
 --
 ALTER TABLE `logo_palestra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de tabela `palestras`
 --
 ALTER TABLE `palestras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de tabela `participantes`
 --
 ALTER TABLE `participantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT de tabela `sorteios`
 --
 ALTER TABLE `sorteios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para tabelas despejadas

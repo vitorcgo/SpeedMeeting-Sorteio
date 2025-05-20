@@ -35,7 +35,7 @@ try {
     $conn->begin_transaction();
 
     // Buscar informações da logo antes de excluir
-    $stmt = $conn->prepare("SELECT caminho_arquivo FROM logos WHERE id = ?");
+    $stmt = $conn->prepare("SELECT imagem FROM logos WHERE id = ?");
     $stmt->bind_param("i", $logoId);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -45,11 +45,11 @@ try {
     }
 
     $logo = $resultado->fetch_assoc();
-    $nomeArquivo = $logo['caminho_arquivo'];
+    $nomeArquivo = $logo['imagem'];
     $caminhoArquivo = "../upload/" . $nomeArquivo;
 
     // Excluir entradas na tabela de relacionamento primeiro
-    $stmt = $conn->prepare("DELETE FROM logo_palestra WHERE logo_id = ?");
+    $stmt = $conn->prepare("DELETE FROM palestras_logos WHERE logo_id = ?");
     $stmt->bind_param("i", $logoId);
     $stmt->execute();
 
@@ -81,7 +81,7 @@ try {
 } catch (Exception $e) {
     // Reverter transação em caso de erro
     $conn->rollback();
-
+    
     echo json_encode([
         'sucesso' => false,
         'mensagem' => 'Erro ao excluir logo: ' . $e->getMessage()

@@ -1,7 +1,7 @@
 import { obterDadosDaPalestra, registrarSorteio } from './tela_ajax.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Tela de apresentação carregada');
+    // Inicialização da tela de apresentação
 
     const video = document.getElementById('video-apresentacao');
     const conteudoSorteado = document.getElementById('conteudo-sorteado');
@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const botaoIniciarSorteio = document.getElementById('botao-iniciar-sorteio');
     const botaoSorteioContainer = document.getElementById('botao-sorteio-container');
     const slideshowLogos = document.getElementById('slideshow-logos');
+    const videoOverlay = document.getElementById('video-overlay');
+    const videoTransicao = document.getElementById('video-transicao');
+
 
     let sorteioEmProgresso = false;
     let slideshowInterval = null;
@@ -25,29 +28,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const palestraId = obterIdPalestraDaURL();
     if (!palestraId) {
-        alert('ID da palestra não informado na URL');
+        Swal.fire({
+            title: 'Erro!',
+            text: 'ID da palestra não informado na URL',
+            icon: 'error',
+            confirmButtonColor: 'var(--cor-perigo)',
+            confirmButtonText: 'OK',
+            showClass: {
+                popup: 'animate__animated animate__fadeIn'
+            }
+        });
         return;
     }
-    
+
     // Carregar dados da palestra, incluindo logos
     async function carregarDadosPalestra() {
         try {
             // Obter dados da palestra via AJAX
             const resposta = await fetch(`php/obter_palestra.php?id=${palestraId}`);
             const dados = await resposta.json();
-            
+
             // Guardar os participantes já sorteados
             participantesSorteados = dados.sorteados.map(s => s.participante_id);
-            
+
             // Inicializar o slider com as logos
             iniciarSlideshowLogos(dados.logos);
-            
+
             return dados;
         } catch (erro) {
             console.error('Erro ao carregar dados da palestra:', erro);
         }
     }
-    
+
     // Carregar dados imediatamente
     carregarDadosPalestra();
 
@@ -60,36 +72,58 @@ document.addEventListener('DOMContentLoaded', async () => {
         botaoIniciarSorteio.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Sorteando...</span>';
         video.play();
         botaoSorteioContainer.classList.remove('visivel');
-        
-        // Reset do sorteio anterior
+
+        // Esconde interface anterior
         conteudoSorteado.classList.add('escondido');
         nomeSorteado.textContent = '';
         empresaSorteada.textContent = '';
+        document.querySelector('.container-apresentacao').style.display = 'none';
+        slideshowLogos.style.display = 'none';
 
-        setTimeout(realizarSorteio, 5000);
-    });
-
-    async function realizarSorteio() {
+        // 🔽 1. FAZ o sorteio antes
+        let resultado;
         try {
-            // Passar a lista de IDs já sorteados para excluir do próximo sorteio
-            const resultado = await registrarSorteio(palestraId, participantesSorteados);
-
+            resultado = await registrarSorteio(palestraId, participantesSorteados);
             if (!resultado?.sucesso) {
                 throw new Error(resultado?.mensagem || 'Erro ao realizar sorteio');
             }
+        } catch (erro) {
+            Swal.fire({
+                title: 'Erro!',
+                text: erro.message,
+                icon: 'error',
+                confirmButtonColor: 'var(--cor-perigo)',
+                confirmButtonText: 'OK'
+            });
+            sorteioEmProgresso = false;
+            return;
+        }
 
-            const sorteado = resultado.participante;
-            const ordem = parseInt(numeroSorteio.textContent) + 1;
-            
-            // Adicionar o ID do sorteado à lista para não ser sorteado novamente
-            participantesSorteados.push(sorteado.id);
+        const sorteado = resultado.participante;
+        const ordem = parseInt(numeroSorteio.textContent) + 1;
+        participantesSorteados.push(sorteado.id);
 
+        // 🔽 2. Mostra o vídeo de transição
+        videoOverlay.classList.remove('escondido');
+        videoTransicao.currentTime = 0;
+        videoTransicao.play();
+
+        // 🔽 3. Após 5s, mostra sorteado
+        setTimeout(() => {
+            videoOverlay.classList.add('escondido');
+            document.querySelector('.container-apresentacao').style.display = '';
+            slideshowLogos.style.display = '';
+
+            // Atualiza os dados sorteados
             numeroSorteio.textContent = ordem;
             nomeSorteado.textContent = sorteado.nome;
             empresaSorteada.textContent = sorteado.empresa;
             conteudoSorteado.classList.remove('escondido');
+            document.getElementById('area-sorteado').classList.remove('escondido');
 
-            localStorage.setItem('sorteioAtualizado', Date.now());
+            // 🔽 Notifica o admin
+            const chaveUnica = `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+            localStorage.setItem('sorteioAtualizado', chaveUnica);
 
             confetti({
                 particleCount: 100,
@@ -98,20 +132,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 colors: ['#FFD400', '#7B1FA2', '#4CAF50', '#FF5252', '#2196F3']
             });
 
-            video.addEventListener('ended', function handler() {
+            setTimeout(() => {
                 botaoIniciarSorteio.disabled = false;
                 botaoIniciarSorteio.innerHTML = '<i class="fas fa-random"></i><span>Iniciar Sorteio</span>';
                 botaoSorteioContainer.classList.add('visivel');
-                video.removeEventListener('ended', handler);
-            });
+            }, 5000);
 
-        } catch (erro) {
-            alert('Erro ao sortear: ' + erro.message);
-            console.error(erro);
-        } finally {
             sorteioEmProgresso = false;
-        }
-    }
+        }, 5000);
+    });
 
     // ✅ Slideshow das logos da palestra
     function iniciarSlideshowLogos(logos) {

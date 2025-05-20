@@ -442,7 +442,8 @@ body {
 }
 
 .grupo-form input[type="text"],
-.grupo-form input[type="date"] {
+.grupo-form input[type="date"],
+.grupo-form input[type="password"] {
     width: 100%;
     padding: 12px 16px;
     border: 1px solid var(--cor-cinza);
@@ -785,6 +786,36 @@ body {
     display: none !important;
 }
 
+/* Loading Spinners */
+.loading-mini {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.spinner-mini {
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--cor-cinza);
+    border-radius: 50%;
+    border-top-color: var(--cor-primaria);
+    animation: girar 0.8s linear infinite;
+}
+
+.animate__animated {
+    animation-duration: 0.5s;
+}
+
+.animate__fadeInDown {
+    animation-name: fadeInDown;
+}
+
+.animate__fadeOutUp {
+    animation-name: fadeOutUp;
+}
+
 /* Animações */
 @keyframes fadeIn {
     from {
@@ -792,6 +823,28 @@ body {
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
     }
 }
 
@@ -958,6 +1011,12 @@ body {
     z-index: 20;
 }
 
+.tabela-administradores {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .slideshow-logos img {
     max-width: 90%;
     max-height: 80px;
@@ -1034,4 +1093,36 @@ body {
     .tabela-palestras td {
         padding: 10px;
     }
+}
+
+
+/* --- ESTILO DO BOTÃO DE LOGOUT --- */
+.topo-logout {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+.botao-logout {
+    background-color: var(--cor-perigo);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.botao-logout:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.botao-logout i {
+    font-size: 16px;
 }
